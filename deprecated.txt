@@ -1,0 +1,102 @@
+//导入stats性能监测
+import Stats from 'three/examples/jsm/libs/stats.module';
+let stats; // 性能监测
+//性能监测
+function initStats() {
+    stats = new Stats();
+    stats.setMode(0);
+    document.body.appendChild(stats.dom);
+}
+
+//导入gui界面
+import * as dat from 'dat.gui';
+let gui;
+//gui图形界面管理
+function guiManage() {
+    gui = new dat.GUI();
+
+    let folder = gui.addFolder("相机");
+    let nestFolder = folder.addFolder("倍速");//嵌套文件夹
+    nestFolder.add(params.speedControlEvent, "fastSpeed").name("2倍速(u)");
+    nestFolder.add(params.speedControlEvent, "normalSpeed").name("1倍速(i)");
+    nestFolder.add(params.speedControlEvent, "lowSpeed").name("0.5倍速(o)");
+    folder.add(params, "wanderEvent1").name("漫游路线1(1)");
+    folder.add(params, "wanderEvent2").name("漫游路线2(2)");
+    folder.add(params, "playPauseEvent").name("播放/暂停(sapce)");
+    folder.add(params, "controlsEvent").name("3D环绕预览(3)");
+    folder.add(params, "fppEvent").name("第一人称视角(f)");
+
+    let folder2 = gui.addFolder("测试");
+    folder2.add(camera.position, "x", -250, 250, 0.01).name("x");
+    folder2.add(camera.position, "y", -250, 250, 0.01).name("y");
+    folder2.add(camera.position, "z", -250, 250, 0.01).name("z");
+    folder2.add(params, "cmrPosEvent").name("显示相机位置(c)");
+
+    let folder3 = gui.addFolder("快速定位");
+    folder3.add(params.locateEvent, "eastOverlook").name("东侧概览");
+    folder3.add(params.locateEvent, "buildingC").name("C楼入口");
+    folder3.add(params.locateEvent, "backDoor").name("A108后门");
+    folder3.add(params.locateEvent, "houseOfTeachers").name("教工之家");
+    folder3.add(params.locateEvent, "A108").name("A108");
+
+    gui.add(params, "resetEvent").name("重置相机(r)");
+}
+
+//鼠标点击事件
+function onMouseClick(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    intersects = raycaster.intersectObjects(scene.children);
+    if (intersects.length > 0) {
+        //找到相交的物体
+        let itsobj = intersects[0].object;
+        //找到鼠标点击的位置的坐标
+        let itspoint = intersects[0].point;
+        //输出物体的名称和材质名
+        console.log(
+            "点坐标:", itspoint,
+            "\n物体:", itsobj,
+            "\n物体名:", itsobj.name,
+            "\n材质名:", (itsobj.isMesh && itsobj.material.name != null) ? itsobj.material.name : "无材质名"
+        );
+    }
+}
+
+locateEvent: { //快速定位
+    eastOverlook: () => {
+        console.log("eastOverlook");
+        ctrlUpdFlag = false;
+        const tarPos = { x: 207, y: 29, z: -3 };
+        const lookPos = { x: 0, y: 0, z: 0 };
+        tweenMove(camera, tarPos, lookPos, 1);
+    },
+    buildingC: () => {
+        console.log("buildingC");
+        ctrlUpdFlag = false;
+        const tarPos = { x: 135, y: -10, z: -50 };
+        const lookPos = { x: 130, y: -10, z: -50 };
+        tweenMove(camera, tarPos, lookPos, 1);
+    },
+    backDoor: () => {
+        console.log("backDoor");
+        ctrlUpdFlag = false;
+        const tarPos = { x: -105, y: -10, z: 70 };
+        const lookPos = { x: -100, y: -10, z: 70 };
+        tweenMove(camera, tarPos, lookPos, 1);
+    },
+    houseOfTeachers: () => {
+        console.log("houseOfTeachers");
+        ctrlUpdFlag = false;
+        const tarPos = { x: -33, y: 0, z: 49 };
+        const lookPos = { x: -30, y: 0, z: 49 };
+        tweenMove(camera, tarPos, lookPos, 1);
+    },
+    A108: () => {
+        console.log("A108");
+        ctrlUpdFlag = false;
+        const tarPos = { x: -50, y: -15, z: 62 };
+        const lookPos = { x: -76, y: -10, z: 76 };
+        tweenMove(camera, tarPos, lookPos, 1);
+    }
+},

@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: white;
+}
+
+#menu {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 24px;
+}
+
+#menu div {
+    margin: 8px;
+}

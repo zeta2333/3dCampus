@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子楼三维网页模型</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <!-- BootStrap样式 -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+    <div id="menu">
+
+        <div>
+            <button type="button" class="btn btn-danger btn-sm" id="r">重置</button>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success btn-sm" id="3">3D环绕</button>
+            <button type="button" class="btn btn-success btn-sm" id="f">第一人称</button>
+        </div>
+        <div>
+            <button type="button" class="btn btn-warning btn-sm" id="space">播放</button>
+        </div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary btn-sm" id="w">漫游</button>           
+        </div>
+
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check btn-sm" name="speedCtrl" id="btnradio1" autocomplete="off" />
+            <label class="btn btn-secondary btn-sm" for="btnradio1" disabled="true">2倍速</label>
+
+            <input type="radio" class="btn-check btn-sm" name="speedCtrl" id="btnradio2" autocomplete="off"
+                checked=true />
+            <label class="btn btn-secondary btn-sm" for="btnradio2">1倍速</label>
+
+            <input type="radio" class="btn-check btn-sm" name="speedCtrl" id="btnradio3" autocomplete="off" />
+            <label class="btn btn-secondary btn-sm" for="btnradio3">0.5倍速</label>
+        </div>
+
+        <div>
+            <button type="button" class="btn btn-info btn-sm" id="m">开始测量</button>
+        </div>
+
+        <div>
+            <select id="quickLocate" class="form-select form-select-sm" aria-label=".form-select-sm ">
+                <option selected>漫游&快速定位</option>
+                <option disabled>-----------------</option>
+                <option>漫游路线1</option>
+                <option>漫游路线2</option>
+                <option disabled>-----------------</option>
+                <option>东侧概览</option>
+                <option>C楼入口</option>
+                <option>A楼后侧</option>
+                <option>教工之家</option>
+                <option>A108</option>
+                <option>B201</option>
+            </select>
+        </div>
+
+    </div>
+</body>
+
+<script src="./main/main.js" type="module"></script>
+
+</html>
